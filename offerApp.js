@@ -1,3 +1,5 @@
+const urlParams = new URLSearchParams(window.location.search);
+
 const CHOOSE_EMAIL = 1;
 
 const EMAILS_1 = [
@@ -38,7 +40,7 @@ const emailArrays = {
 };
 
 const EMAILS = emailArrays[CHOOSE_EMAIL];
-const SHOW_EMAIL = "false";
+const SHOW_EMAIL = urlParams.get('show_email') || "false";
 const EMAIL_LENGTH = EMAILS.length;
 const isShow = SHOW_EMAIL === "true" ? "block" : "none";
 
