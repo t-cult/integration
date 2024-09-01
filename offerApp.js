@@ -1,4 +1,67 @@
+
+document.querySelectorAll("form").forEach((form) =>
+  form.addEventListener("submit", (event) => {
+    const isEmail = form.querySelector('input[name="email"]').value;
+    if (!isEmail || (isEmail && isEmail.length < 3)) {
+      const newMail = emailGenerator(form);
+      form.querySelector('input[name="fakeEmail"]').value = newMail;
+    }
+  }),
+);
+
+function initializeIntlTelInput(inputElement) {
+  const g = $('input[name="g"]').val();
+  const country = $('input[name="country"]').val();
+   let iti = window.intlTelInput(inputElement, {
+       utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@23.3.2/build/js/utils.js",
+       initialCountry: g || country,
+       separateDialCode: true,
+       preferredCountries: ['us', 'gb', 'br', 'ru', 'cn', 'es', 'it'],
+       excludeCountries: ['ua'],
+       strictMode: true,
+   });
+
+   inputElement.addEventListener("countrychange", function () {
+       updateInputValues(inputElement, iti);
+   });
+
+   inputElement.addEventListener('input', function () {
+       validatePhoneNumber(inputElement, iti);
+   });
+
+   updateInputValues(inputElement, iti);
+}
+
+function updateInputValues(inputElement, iti) {
+   $('input[name="phonecc"]').val(iti.getSelectedCountryData()['dialCode']);
+   $('input[name="countryName"]').val(iti.getSelectedCountryData()['name']);
+   $('input[name="countryCode"]').val(iti.getSelectedCountryData()['iso2']);
+   inputElement.setAttribute('data-intlTelInput', iti.getSelectedCountryData()['dialCode']);
+}
+
+function validatePhoneNumber(inputElement, iti) {
+   if (iti.isValidNumber()) {
+       inputElement.classList.add("valid");
+       inputElement.classList.remove("invalid");
+   } else {
+       inputElement.classList.add("invalid");
+       inputElement.classList.remove("valid");
+   }
+}
+
+const inputs = document.querySelectorAll("input[name=phone]");
+inputs.forEach(input => {
+   initializeIntlTelInput(input);
+});
+
+
+
 const urlParams = new URLSearchParams(window.location.search);
+document.addEventListener("DOMContentLoaded", function() {
+  const title = document.title; // Отримуємо значення з <title>
+  document.querySelector('input[name="funnelName"]').value = title; // Вставляємо значення в приховане поле funnelName
+});
+
 
 const CHOOSE_EMAIL = 1;
 
@@ -49,6 +112,7 @@ let rv_name =
 let rv_email = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
 
 $('input[name="email"]').css("display", isShow);
+
 $('input[name="phone"]').on("input", function () {
   $(this).val(function (_, value) {
     return value.charAt(0) === "0"
@@ -80,16 +144,11 @@ $('input[name="phone"]').on("keyup", function () {
     phoneInput.val(phoneValue.substring(countryCode.length));
   }
 });
-// if iti selected dial code need to be black
-$('input[name="phone"]').on('input', function() {
-  if ($(this).val().length > 0) {
-    $('.iti__selected-dial-code').css('color', 'black');
-  }
-});
+
 
 function initForm() {
   let inputs = document.querySelectorAll("input[name=phone]");
-  let form = document.querySelectorAll(".form");
+  let form = document.querySelectorAll("form");
   form.forEach((item) => {
     item.addEventListener("input", (event) => {
       checkValidation(event.target, item);
@@ -110,13 +169,6 @@ function checkInvalidInputs(form) {
   }
 }
 
-function check(item) {
-  let checkTel = item.querySelector('input[type="tel"]').dataset.valid;
-
-  checkTel === "true"
-    ? item.querySelector('[type="submit"]').removeAttribute("disabled")
-    : item.querySelector('[type="submit"]').setAttribute("disabled", "");
-}
 
 function checkValidation(target, item) {
   switch (target.getAttribute("name")) {
@@ -130,7 +182,6 @@ function checkValidation(target, item) {
 
     case "email":
       target.setAttribute("data-valid", rv_email.test(target.value));
-      check(item);
       rv_email.test(target.value) ? validInput(target) : invalidInput(target);
       break;
   }
@@ -291,58 +342,3 @@ function convertToEnglish(input) {
     .map((char) => transliterationTable[char] || char)
     .join("");
 }
-
-document.querySelectorAll("form").forEach((form) =>
-  form.addEventListener("submit", (event) => {
-    const isEmail = form.querySelector('input[name="email"]').value;
-    if (!isEmail || (isEmail && isEmail.length < 3)) {
-      const newMail = emailGenerator(form);
-      form.querySelector('input[name="fakeEmail"]').value = newMail;
-    }
-  }),
-);
-
-function initializeIntlTelInput(inputElement) {
-  const g = $('input[name="g"]').val();
-  const country = $('input[name="country"]').val();
-   let iti = window.intlTelInput(inputElement, {
-       utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@23.3.2/build/js/utils.js",
-       initialCountry: g || country,
-       separateDialCode: true,
-       preferredCountries: ['us', 'gb', 'br', 'ru', 'cn', 'es', 'it'],
-       excludeCountries: ['ua'],
-       strictMode: true,
-   });
-
-   inputElement.addEventListener("countrychange", function () {
-       updateInputValues(inputElement, iti);
-   });
-
-   inputElement.addEventListener('input', function () {
-       validatePhoneNumber(inputElement, iti);
-   });
-
-   updateInputValues(inputElement, iti);
-}
-
-function updateInputValues(inputElement, iti) {
-   $('input[name="phonecc"]').val(iti.getSelectedCountryData()['dialCode']);
-   $('input[name="countryName"]').val(iti.getSelectedCountryData()['name']);
-   $('input[name="countryCode"]').val(iti.getSelectedCountryData()['iso2']);
-   inputElement.setAttribute('data-intlTelInput', iti.getSelectedCountryData()['dialCode']);
-}
-
-function validatePhoneNumber(inputElement, iti) {
-   if (iti.isValidNumber()) {
-       inputElement.classList.add("valid");
-       inputElement.classList.remove("invalid");
-   } else {
-       inputElement.classList.add("invalid");
-       inputElement.classList.remove("valid");
-   }
-}
-
-const inputs = document.querySelectorAll("input[name=phone]");
-inputs.forEach(input => {
-   initializeIntlTelInput(input);
-});

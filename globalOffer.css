@@ -9,7 +9,7 @@ input:not([type=checkbox]).invalid {
  background-color: #ffd6cf !important;
  border: 1px solid tomato !important;
  background-image: none;
-  color:black;
+color:black;
 }
 
 .submit-button[disabled] {
