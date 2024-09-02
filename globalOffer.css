@@ -46,6 +46,7 @@ input:not([type=checkbox]).valid {
   font-weight: 400;
   font-style: normal;
   font-weight: bold;
+  text-wrap: balance;
 }
 
 
@@ -74,7 +75,7 @@ input:not([type=checkbox]).valid {
   }
 }
 #messageSvg{
-  width: 3%;
+  width: auto
 }
 
 
