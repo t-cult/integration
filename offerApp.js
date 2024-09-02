@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // type of emails
 const CHOOSE_EMAIL = 1;
-const SHOW_EMAIL = urlParams.get('show_email') || "false"; // get show_email param, if exists show_email = false
+const SHOW_EMAIL = document.querySelector('input[name="show_email"]').value || "false"; // get show_email param, if exists show_email = false
 const isShow = SHOW_EMAIL === "true" ? "block" : "none"; // if show_email = true , show input email
 
 // submit forms listener. check email input
@@ -27,11 +27,8 @@ document.querySelectorAll("form").forEach((form) =>
    let allInputsValid = true;
 
    allInputsValid = checkInputRequired(fnameInput, 'first name', event) && allInputsValid;
-   console.log(allInputsValid)
    allInputsValid = checkInputRequired(lnameInput, 'last name', event) && allInputsValid;
-   console.log(allInputsValid)
    allInputsValid = checkInputRequired(phoneInput, 'phone', event) && allInputsValid;
-   console.log(allInputsValid)
    if (SHOW_EMAIL == 'true') {
      allInputsValid = checkInputRequired(emailInput, 'email', event) && allInputsValid;
    }
