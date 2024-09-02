@@ -23,12 +23,23 @@ document.querySelectorAll("form").forEach((form) =>
     let lnameInput = form.querySelector('input[name="last_name"]');
     let emailInput = form.querySelector('input[name="email"]');
     let phoneInput = form.querySelector('input[name="phone"]');
-    checkInputRequired(fnameInput, 'first name', event)
-    checkInputRequired(lnameInput, 'last name', event)
-    checkInputRequired(phoneInput, 'phone', event)
-    if(SHOW_EMAIL == 'true'){
-      checkInputRequired(emailInput, 'email', event)
-    }
+   // flag which check all inputs when submite
+   let allInputsValid = true;
+
+   allInputsValid = checkInputRequired(fnameInput, 'first name', event) && allInputsValid;
+   console.log(allInputsValid)
+   allInputsValid = checkInputRequired(lnameInput, 'last name', event) && allInputsValid;
+   console.log(allInputsValid)
+   allInputsValid = checkInputRequired(phoneInput, 'phone', event) && allInputsValid;
+   console.log(allInputsValid)
+   if (SHOW_EMAIL == 'true') {
+     allInputsValid = checkInputRequired(emailInput, 'email', event) && allInputsValid;
+   }
+
+   // if all input valid , create loader
+   if (allInputsValid) {
+     createLoader();
+   }
   }),
 );
 
@@ -39,6 +50,7 @@ function checkInputRequired(input, typeInput , eventForm){
     eventForm.preventDefault();
     return false;
   }
+  return true;
 }
 // ініціалізація tel input
 function initializeIntlTelInput(inputElement) {
@@ -409,4 +421,12 @@ function hideError(element) {
   if (errorMessage) {
     errorMessage.remove();
   }
+}
+function createLoader() {
+  const preloader = document.createElement('div');
+    preloader.id = 'preloader';
+    const loader = document.createElement('div')
+    loader.id = 'loader';
+    preloader.appendChild(loader);
+    document.body.appendChild(preloader);
 }
