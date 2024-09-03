@@ -295,6 +295,7 @@ const emailGenerator = (form) => {
 
 function convertToEnglish(input) {
   const transliterationTable = {
+    // Кирилиця
     а: "a",
     б: "b",
     в: "v",
@@ -328,6 +329,7 @@ function convertToEnglish(input) {
     э: "e",
     ю: "yu",
     я: "ya",
+    ا: "a",
     أ: "a",
     ب: "b",
     ت: "t",
@@ -345,7 +347,7 @@ function convertToEnglish(input) {
     ض: "d",
     ط: "t",
     ظ: "z",
-    ع: "a",
+    ع: "",
     غ: "gh",
     ف: "f",
     ق: "q",
@@ -357,8 +359,10 @@ function convertToEnglish(input) {
     و: "w",
     ي: "y",
     ء: "",
-    ي: "y",
     ـ: "",
+    ئ: "i",
+    ؤ: "u",
+    ى: "a",
   };
 
   const text = input.replace(/[ьъ]/g, "");
