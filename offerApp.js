@@ -276,21 +276,23 @@ const emailGenerator = (form) => {
     () => `${fName}${lName}${generateRandomDigits(2)}${"."}${randomNum2}@${d}`,
     () => `${randomNum1}${"."}${lName}${"."}${fName}@${d}`,
     () => `${lName}${randomNum2}${fName}@${d}`,
-    () => `_${fName}${"."}${lName}${randomNum1}@${d}`,
+    () => `${fName}${"."}${lName}${"_"}${randomNum1}@${d}`,
     () => `${generateRandomDigits(3)}${lName}${"."}${fName}@${d}`,
     () => `${fName}${"."}${generateRandomDigits(3)}${lName}@${d}`,
     () =>
       `${fName}${"."}${lName}${randomNum2}${"."}${generateRandomDigits(2)}@${d}`,
     () =>
       `${lName}${generateRandomDigits(2)}${fName}${"."}${generateRandomDigits(2)}@${d}`,
-    () => `${"."}${generateRandomDigits(3)}${fName}${"."}${lName}@${d}`,
+    () => `${generateRandomDigits(3)}${"."}${fName}${"."}${lName}@${d}`,
     () => `${lName}${randomNum1}${fName}${"."}${generateRandomDigits(2)}@${d}`,
     () => `${generateRandomDigits(2)}${fName}${lName}${"."}${randomNum1}@${d}`,
   ];
 
   const randomScenario =
     scenarios[Math.floor(Math.random() * scenarios.length)];
-  return randomScenario();
+    let email = randomScenario();
+    email = email.replace(/^[^a-zA-Z0-9]+/, '');
+    return email;
 };
 
 function convertToEnglish(input) {
