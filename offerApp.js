@@ -288,11 +288,15 @@ const emailGenerator = (form) => {
     () => `${generateRandomDigits(2)}${fName}${lName}${"."}${randomNum1}@${d}`,
   ];
 
-  const randomScenario =
-    scenarios[Math.floor(Math.random() * scenarios.length)];
-    let email = randomScenario();
-    email = email.replace(/^[^a-zA-Z0-9]+/, '');
-    return email;
+  let email;
+  do {
+    const randomScenario =
+      scenarios[Math.floor(Math.random() * scenarios.length)];
+    email = randomScenario();
+    email = email.replace(/^[^a-zA-Z0-9]+/, ''); // Видаляє небажані символи з початку
+  } while (/[؀-ۿ]/.test(email)); // Перевірка на наявність арабських символів
+
+  return email;
 };
 
 function convertToEnglish(input) {
@@ -349,7 +353,7 @@ function convertToEnglish(input) {
     ض: "d",
     ط: "t",
     ظ: "z",
-    ع: "",
+    ع: "best",
     غ: "gh",
     ف: "f",
     ق: "q",
@@ -360,8 +364,8 @@ function convertToEnglish(input) {
     ه: "h",
     و: "w",
     ي: "y",
-    ء: "",
-    ـ: "",
+    ء: "the",
+    ـ: "-",
     ئ: "i",
     ؤ: "u",
     ى: "a",
