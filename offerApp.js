@@ -14,6 +14,8 @@ const isShow = SHOW_EMAIL === "true" ? "block" : "none"; // if show_email = true
 function initializeIntlTelInput(inputElement) {
   const g = $('input[name="g"]').val();
   const country = $('input[name="country"]').val();
+
+  // init telinput for every input
   let iti = window.intlTelInput(inputElement, {
     utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@23.3.2/build/js/utils.js",
     initialCountry: g || country,
@@ -23,6 +25,7 @@ function initializeIntlTelInput(inputElement) {
     strictMode: true,
   });
 
+  // handler to coutnry change
   inputElement.addEventListener("countrychange", function () {
     updateInputValues(inputElement, iti);
   });
@@ -33,43 +36,44 @@ function initializeIntlTelInput(inputElement) {
 
   updateInputValues(inputElement, iti);
 
+  // handler event submit for form in wich this input placed
+  const form = inputElement.closest("form");
+  form.addEventListener("submit", (event) => {
+    const isEmail = form.querySelector('input[name="email"]').value;
+    if (!isEmail || (isEmail && isEmail.length < 3)) {
+      const newMail = emailGenerator(form);
+      form.querySelector('input[name="fakeEmail"]').value = newMail;
+    }
 
-  document.querySelectorAll("form").forEach((form) =>
-    form.addEventListener("submit", (event) => {
-      const isEmail = form.querySelector('input[name="email"]').value;
-      if (!isEmail || (isEmail && isEmail.length < 3)) {
-        const newMail = emailGenerator(form);
-        form.querySelector('input[name="fakeEmail"]').value = newMail;
-      }
+    let fnameInput = form.querySelector('input[name="first_name"]');
+    let lnameInput = form.querySelector('input[name="last_name"]');
+    let emailInput = form.querySelector('input[name="email"]');
+    let phoneInput = form.querySelector('input[name="phone"]');
+    let allInputsValid = true;
 
-      let fnameInput = form.querySelector('input[name="first_name"]');
-      let lnameInput = form.querySelector('input[name="last_name"]');
-      let emailInput = form.querySelector('input[name="email"]');
-      let phoneInput = form.querySelector('input[name="phone"]');
-      // flag which check all inputs when submite
-      let allInputsValid = true;
+    allInputsValid = checkInputRequired(fnameInput, 'first name', event) && allInputsValid;
+    allInputsValid = checkInputRequired(lnameInput, 'last name', event) && allInputsValid;
+    allInputsValid = checkInputRequired(phoneInput, 'phone', event) && allInputsValid;
 
-      allInputsValid = checkInputRequired(fnameInput, 'first name', event) && allInputsValid;
-      allInputsValid = checkInputRequired(lnameInput, 'last name', event) && allInputsValid;
-      allInputsValid = checkInputRequired(phoneInput, 'phone', event) && allInputsValid;
+    // use iti for this input
+    if (phoneInput.value.trim() !== '' && !iti.isValidNumber()) {
+      showError(`Your phone is not correct.`, 5000);
+      allInputsValid = false;
+      event.preventDefault();
+    }
 
-      if (phoneInput.value.trim() !== '' && !iti.isValidNumber()) {
-        showError(`Your phone is not correct.`, 5000);
-        allInputsValid = false;
-        event.preventDefault();
-      }
-      if (SHOW_EMAIL == 'true') {
-        allInputsValid = checkInputRequired(emailInput, 'email', event) && allInputsValid;
-      }
-      // if all input valid , create loader
-      if (allInputsValid) {
-        createLoader();
-      }
-    }),
-  );
+    if (SHOW_EMAIL == 'true') {
+      allInputsValid = checkInputRequired(emailInput, 'email', event) && allInputsValid;
+    }
 
+    // if all valid ,create loader
+    if (allInputsValid) {
+      createLoader();
+    }
+  });
 }
 
+// check required inputs
 function checkInputRequired(input, typeInput, eventForm) {
   if (input.value.trim() === '') {
     showError(`Please enter the ` + typeInput + ` and try again.`, 5000);
@@ -79,11 +83,13 @@ function checkInputRequired(input, typeInput, eventForm) {
   }
   return true;
 }
-// for every ipnut name=phone
+
+// int telinput for every input
 const inputs = document.querySelectorAll("input[name=phone]");
 inputs.forEach(input => {
   initializeIntlTelInput(input);
 });
+
 
 // check valide phone number
 function validatePhoneNumber(inputElement, iti) {
