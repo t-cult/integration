@@ -6,8 +6,14 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // type of emails
-const CHOOSE_EMAIL = 1;
-const SHOW_EMAIL = document.querySelector('input[name="show_email"]').value || "false"; // get show_email param, if exists show_email = false
+let CHOOSE_EMAIL = 1
+const language = document.querySelector('meta[name="language"]').getAttribute('content');
+if (language == 'ru') {
+  CHOOSE_EMAIL = 2;
+}
+
+
+const SHOW_EMAIL = document.querySelector('meta[name="show_email"]').getAttribute('content') || "false"; // get show_email param, if exists show_email = false
 const isShow = SHOW_EMAIL === "true" ? "block" : "none"; // if show_email = true , show input email
 
 // init tel input
@@ -308,73 +314,15 @@ const emailGenerator = (form) => {
 function convertToEnglish(input) {
   const transliterationTable = {
     // Кирилиця
-    а: "a",
-    б: "b",
-    в: "v",
-    г: "g",
-    д: "d",
-    е: "e",
-    ё: "e",
-    ж: "zh",
-    з: "z",
-    и: "i",
-    й: "y",
-    к: "k",
-    л: "l",
-    м: "m",
-    н: "n",
-    о: "o",
-    п: "p",
-    р: "r",
-    с: "s",
-    т: "t",
-    у: "u",
-    ф: "f",
-    х: "kh",
-    ц: "ts",
-    ч: "ch",
-    ш: "sh",
-    щ: "sch",
-    ъ: "",
-    ы: "y",
-    ь: "",
-    э: "e",
-    ю: "yu",
-    я: "ya",
-    ا: "a",
-    أ: "a",
-    ب: "b",
-    ت: "t",
-    ث: "th",
-    ج: "j",
-    ح: "h",
-    خ: "kh",
-    د: "d",
-    ذ: "dh",
-    ر: "r",
-    ز: "z",
-    س: "s",
-    ش: "sh",
-    ص: "s",
-    ض: "d",
-    ط: "t",
-    ظ: "z",
-    ع: "best",
-    غ: "gh",
-    ف: "f",
-    ق: "q",
-    ك: "k",
-    ل: "l",
-    م: "m",
-    ن: "n",
-    ه: "h",
-    و: "w",
-    ي: "y",
-    ء: "the",
-    ـ: "-",
-    ئ: "i",
-    ؤ: "u",
-    ى: "a",
+    а: "a", б: "b", в: "v", г: "g", д: "d", е: "e", ё: "e", ж: "zh",
+    з: "z", и: "i", й: "y", к: "k", л: "l", м: "m", н: "n", о: "o",
+    п: "p", р: "r", с: "s", т: "t", у: "u", ф: "f", х: "kh", ц: "ts",
+    ч: "ch", ш: "sh", щ: "sch", ъ: "", ы: "y", ь: "", э: "e", ю: "yu",
+    я: "ya", ا: "a", أ: "a", ب: "b",
+    ت: "t", ث: "th", ج: "j", ح: "h", خ: "kh", د: "d", ذ: "dh", ر: "r",
+    ز: "z", س: "s", ش: "sh", ص: "s", ض: "d", ط: "t", ظ: "z", ع: "best",
+    غ: "gh", ف: "f", ق: "q", ك: "k", ل: "l", م: "m", ن: "n", ه: "h",
+    و: "w", ي: "y", ء: "the", ـ: "-", ئ: "i", ؤ: "u", ى: "a",
   };
 
   const text = input.replace(/[ьъ]/g, "");
