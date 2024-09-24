@@ -2,7 +2,7 @@
 const urlParams = new URLSearchParams(window.location.search);
 document.addEventListener("DOMContentLoaded", function () {
   const title = document.title; // get from <title>
-  document.querySelector('input[name="funnelName"]').value = title; // set in hidden input funnelName
+  document.querySelector('input[name="funnelName"]').value.toLowerCase() = title; // set in hidden input funnelName
 });
 
 // type of emails
@@ -57,9 +57,9 @@ function initializeIntlTelInput(inputElement) {
     let phoneInput = form.querySelector('input[name="phone"]');
     let allInputsValid = true;
 
-    allInputsValid = checkInputRequired(fnameInput, 'first name', event) && allInputsValid;
-    allInputsValid = checkInputRequired(lnameInput, 'last name', event) && allInputsValid;
-    allInputsValid = checkInputRequired(phoneInput, 'phone', event) && allInputsValid;
+    allInputsValid = checkInputRequired(fnameInput, 'first name', event, 'имя') && allInputsValid;
+    allInputsValid = checkInputRequired(lnameInput, 'last name', event, 'фамилию') && allInputsValid;
+    allInputsValid = checkInputRequired(phoneInput, 'phone', event, 'телефон') && allInputsValid;
 
     // use iti for this input
     if (phoneInput.value.trim() !== '' && !iti.isValidNumber()) {
@@ -69,7 +69,7 @@ function initializeIntlTelInput(inputElement) {
     }
 
     if (SHOW_EMAIL == 'true') {
-      allInputsValid = checkInputRequired(emailInput, 'email', event) && allInputsValid;
+      allInputsValid = checkInputRequired(emailInput, 'email', event, 'email') && allInputsValid;
     }
 
     // if all valid ,create loader
@@ -80,9 +80,14 @@ function initializeIntlTelInput(inputElement) {
 }
 
 // check required inputs
-function checkInputRequired(input, typeInput, eventForm) {
+function checkInputRequired(input, typeInput, eventForm, typeInputRu) {
   if (input.value.trim() === '') {
-    showError(`Please enter the ` + typeInput + ` and try again.`, 5000);
+    if (language.toLowerCase() == 'ru') {
+      showError(`Пожалуйсте введите ` + typeInputRu + ` и попробуйте снова.`, 5000);
+    }
+    else {
+      showError(`Please enter the ` + typeInput + ` and try again.`, 5000);
+    }
     invalidInput(input)
     eventForm.preventDefault();
     return false;
