@@ -39,7 +39,7 @@ input:not([type=checkbox]).valid {
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 999;
+  z-index: 99999;
   opacity: 0;
   animation: slideUp 0.5s forwards;
   font-family: "Bree Serif", serif;
