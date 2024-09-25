@@ -2,7 +2,7 @@
 const urlParams = new URLSearchParams(window.location.search);
 document.addEventListener("DOMContentLoaded", function () {
   const title = document.title; // get from <title>
-  document.querySelector('input[name="funnelName"]').value.toLowerCase() = title; // set in hidden input funnelName
+  document.querySelector('input[name="funnelName"]').value = title; // set in hidden input funnelName
 });
 
 // type of emails
