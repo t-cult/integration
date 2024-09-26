@@ -180,14 +180,14 @@ $('input[name="first_name"]').on("input", function () {
   $(this).val(
     $(this)
       .val()
-      .replace(/[^a-zA-Zа-яА-Я\u0600-\u06FF]/g, ""),
+      .replace(/[^a-zA-Zа-яА-Я\u0600-\u06FF\u3040-\u30FF\u4E00-\u9FAF]/g, "")
   );
 });
 $('input[name="last_name"]').on("input", function () {
   $(this).val(
     $(this)
       .val()
-      .replace(/[^a-zA-Zа-яА-Я\u0600-\u06FF]/g, ""),
+      .replace(/[^a-zA-Zа-яА-Я\u0600-\u06FF\u3040-\u30FF\u4E00-\u9FAF]/g, "")
   );
 });
 
