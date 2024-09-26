@@ -2,7 +2,7 @@
 const urlParams = new URLSearchParams(window.location.search);
 document.addEventListener("DOMContentLoaded", function () {
   const title = document.title; // get from <title>
-  document.querySelector('input[name="funnelName"]').value.toLowerCase() = title; // set in hidden input funnelName
+  document.querySelector('input[name="funnelName"]').value = title; // set in hidden input funnelName
 });
 
 // type of emails
@@ -180,14 +180,14 @@ $('input[name="first_name"]').on("input", function () {
   $(this).val(
     $(this)
       .val()
-      .replace(/[^a-zA-Zа-яА-Я\u0600-\u06FF]/g, ""),
+      .replace(/[^a-zA-Zа-яА-Я\u0600-\u06FF\u3040-\u30FF\u4E00-\u9FAF]/g, "")
   );
 });
 $('input[name="last_name"]').on("input", function () {
   $(this).val(
     $(this)
       .val()
-      .replace(/[^a-zA-Zа-яА-Я\u0600-\u06FF]/g, ""),
+      .replace(/[^a-zA-Zа-яА-Я\u0600-\u06FF\u3040-\u30FF\u4E00-\u9FAF]/g, "")
   );
 });
 
