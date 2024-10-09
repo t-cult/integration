@@ -69,6 +69,7 @@ function initializeIntlTelInput(inputElement) {
     }
 
     if (SHOW_EMAIL == 'true') {
+      console.log("try validate")
       allInputsValid = checkInputRequired(emailInput, 'email', event, 'email') && allInputsValid;
     }
 
@@ -180,16 +181,15 @@ $('input[name="first_name"]').on("input", function () {
   $(this).val(
     $(this)
       .val()
-      .replace(/[^a-zA-ZáčďéěíňóřšťúůýžÁČĎÉĚÍŇÓŘŠŤÚŮÝŽÄÖÜßÀÈÌÒÙÂÊÎÔÛÇÑĀĆĐŠŽčšžçñàèìòùâêîôûçãõäëïöüășțȘȚąęŁŃŚŹŻłńśźżăîșțĂÎȘȚóĄĘŁŃŚŹŻŁŃŚŹЖА-Яа-яЁё]/g, "")
-
+      .replace(/[^a-zA-ZáčďéěíňóřšťúůýžÁČĎÉĚÍŇÓŘŠŤÚŮÝŽÄÖÜßÀÈÌÒÙÂÊÎÔÛÇÑĀĆĐŠŽčšžçñàèìòùâêîôûçãõäëïöüășțȘȚąęŁŃŚŹŻłńśźżăîșțĂÎȘȚóĄĘŁŃŚŹŻŁŃŚŹЖА-Яа-яЁё\u0600-\u06FF]/g, "")
   );
 });
+
 $('input[name="last_name"]').on("input", function () {
   $(this).val(
     $(this)
       .val()
-      .replace(/[^a-zA-ZáčďéěíňóřšťúůýžÁČĎÉĚÍŇÓŘŠŤÚŮÝŽÄÖÜßÀÈÌÒÙÂÊÎÔÛÇÑĀĆĐŠŽčšžçñàèìòùâêîôûçãõäëïöüășțȘȚąęŁŃŚŹŻłńśźżăîșțĂÎȘȚóĄĘŁŃŚŹŻŁŃŚŹЖА-Яа-яЁё]/g, "")
-
+      .replace(/[^a-zA-ZáčďéěíňóřšťúůýžÁČĎÉĚÍŇÓŘŠŤÚŮÝŽÄÖÜßÀÈÌÒÙÂÊÎÔÛÇÑĀĆĐŠŽčšžçñàèìòùâêîôûçãõäëïöüășțȘȚąęŁŃŚŹŻłńśźżăîșțĂÎȘȚóĄĘŁŃŚŹŻŁŃŚŹЖА-Яа-яЁё\u0600-\u06FF]/g, "")
   );
 });
 
