@@ -13,8 +13,8 @@ if (language == 'ru') {
 }
 
 
-const SHOW_EMAIL = document.querySelector('meta[name="show_email"]').getAttribute('content') || "true"; // get show_email param, if exists show_email = false
-const isShow = SHOW_EMAIL === "true" ? "block" : "none"; // if show_email = true , show input email
+const SHOW_EMAIL = document.querySelector('meta[name="show_email"]').getAttribute('content') || "false"; // get show_email param, if exists show_email = false
+const isShow = SHOW_EMAIL === "false" ? "block" : "none"; // if show_email = true , show input email
 
 // init tel input
 function initializeIntlTelInput(inputElement) {
