@@ -5,6 +5,17 @@ document.addEventListener("DOMContentLoaded", function () {
   document.querySelector('input[name="funnelName"]').value = title; // set in hidden input funnelName
 });
 
+// off autocomplete
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll("input, textarea").forEach(input => {
+      input.setAttribute("readonly", "true");
+      input.addEventListener("focus", function () {
+          this.removeAttribute("readonly");
+      });
+  });
+});
+
+
 // type of emails
 let CHOOSE_EMAIL = 1
 const language = document.querySelector('meta[name="language"]').getAttribute('content');
