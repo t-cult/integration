@@ -24,7 +24,10 @@ if (language == 'ru') {
 }
 
 
-const SHOW_EMAIL = document.querySelector('meta[name="show_email"]').getAttribute('content') || "off"; // get show_email param, if exists show_email = false
+let SHOW_EMAIL = document.querySelector('meta[name="show_email"]').getAttribute('content') || "off"; // get show_email param, if exists show_email = false
+if (SHOW_EMAIL == "{fm}"){
+  SHOW_EMAIL = "off";
+}
 const isShow = SHOW_EMAIL === "off" ? "block" : "none"; // if show_email = off , show input email
 
 // init tel input
