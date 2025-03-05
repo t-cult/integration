@@ -9,11 +9,22 @@ document.addEventListener("DOMContentLoaded", function () {
 document.addEventListener("DOMContentLoaded", function () {
   document.querySelectorAll("input, textarea").forEach(input => {
       input.setAttribute("readonly", "true");
+      input.setAttribute("autocomplete", "off");
       input.addEventListener("focus", function () {
           this.removeAttribute("readonly");
       });
   });
+
+  document.querySelectorAll(".iti__selected-country").forEach(button => {
+      button.addEventListener("click", function () {
+          let phoneInput = document.querySelector("input[name='phone']");
+          if (phoneInput) {
+              phoneInput.removeAttribute("readonly");
+          }
+      });
+  });
 });
+
 
 
 // type of emails
