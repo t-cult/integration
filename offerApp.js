@@ -89,7 +89,7 @@ function initializeIntlTelInput(inputElement) {
     
       const isRussianSpeaking = russianSpeakingCountries.includes(countryName);
       const message = isRussianSpeaking
-        ? 'Номер телефона введён некорректно.'
+        ? 'Похоже, что вы ввели неправильный номер. Проверьте, пожалуйста, нет ли лишних цифр и не введен ли код вашей страны дважды.'
         : 'Your phone is not correct.';
     
       showError(message, 5000);
