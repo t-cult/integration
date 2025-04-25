@@ -5,12 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
   document.querySelector('input[name="funnelName"]').value = title; // set in hidden input funnelName
 });
 
-// type of emails
-let CHOOSE_EMAIL = 1
-const language = document.querySelector('meta[name="language"]').getAttribute('content');
-if (language == 'ru') {
-  CHOOSE_EMAIL = 2;
-}
+
 const russianSpeakingCountries = [
   'Russia', 
   'Belarus', 
@@ -29,8 +24,19 @@ const russianSpeakingCountries = [
 ];
 
 
-const SHOW_EMAIL = document.querySelector('meta[name="show_email"]').getAttribute('content') || "false"; // get show_email param, if exists show_email = false
-const isShow = SHOW_EMAIL === "true" ? "block" : "none"; // if show_email = true , show input email
+// type of emails
+let CHOOSE_EMAIL = 1
+const language = document.querySelector('meta[name="language"]').getAttribute('content');
+if (language == 'ru') {
+  CHOOSE_EMAIL = 2;
+}
+
+
+let SHOW_EMAIL = document.querySelector('meta[name="show_email"]').getAttribute('content') || "off"; // get show_email param, if exists show_email = false
+if (SHOW_EMAIL == "{fm}"){
+  SHOW_EMAIL = "off";
+}
+const isShow = SHOW_EMAIL === "off" ? "block" : "none"; // if show_email = off , show input email
 
 // init tel input
 function initializeIntlTelInput(inputElement) {
