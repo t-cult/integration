@@ -11,6 +11,22 @@ const language = document.querySelector('meta[name="language"]').getAttribute('c
 if (language == 'ru') {
   CHOOSE_EMAIL = 2;
 }
+const russianSpeakingCountries = [
+  'Russia', 
+  'Belarus', 
+  'Kazakhstan', 
+  'Kyrgyzstan', 
+  'Uzbekistan',
+  'Tajikistan', 
+  'Turkmenistan',
+  'Moldova',
+  'Azerbaijan', 
+  'Armenia', 
+  'Georgia', 
+  'Estonia', 
+  'Latvia', 
+  'Lithuania',
+];
 
 
 const SHOW_EMAIL = document.querySelector('meta[name="show_email"]').getAttribute('content') || "false"; // get show_email param, if exists show_email = false
@@ -63,7 +79,14 @@ function initializeIntlTelInput(inputElement) {
 
     // use iti for this input
     if (phoneInput.value.trim() !== '' && !iti.isValidNumber()) {
-      showError(`Your phone is not correct.`, 5000);
+      const countryName = $('input[name="countryName"]').val();
+    
+      const isRussianSpeaking = russianSpeakingCountries.includes(countryName);
+      const message = isRussianSpeaking
+        ? 'Номер телефона введён некорректно.'
+        : 'Your phone is not correct.';
+    
+      showError(message, 5000);
       allInputsValid = false;
       event.preventDefault();
     }
