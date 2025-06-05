@@ -30,6 +30,22 @@ const language = document.querySelector('meta[name="language"]').getAttribute('c
 if (language == 'ru') {
   CHOOSE_EMAIL = 2;
 }
+const russianSpeakingCountries = [
+  'Russia', 
+  'Belarus', 
+  'Kazakhstan', 
+  'Kyrgyzstan', 
+  'Uzbekistan',
+  'Tajikistan', 
+  'Turkmenistan',
+  'Moldova',
+  'Azerbaijan', 
+  'Armenia', 
+  'Georgia', 
+  'Estonia', 
+  'Latvia', 
+  'Lithuania',
+];
 
 
 let SHOW_EMAIL = document.querySelector('meta[name="show_email"]').getAttribute('content') || "off"; // get show_email param, if exists show_email = false
@@ -88,12 +104,10 @@ function initializeIntlTelInput(inputElement) {
     // use iti for this input
     if (phoneInput.value.trim() !== '' && !iti.isValidNumber()) {
       const countryName = $('input[name="countryName"]').val();
-
       const isRussianSpeaking = russianSpeakingCountries.includes(countryName);
       const message = isRussianSpeaking
         ? 'Похоже, что вы ввели неправильный номер. Проверьте, пожалуйста, нет ли лишних цифр и не введен ли код вашей страны дважды.'
         : 'Your phone is not correct.';
-
       showError(message, 5000);
       allInputsValid = false;
       event.preventDefault();
